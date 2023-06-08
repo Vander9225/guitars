@@ -93,8 +93,7 @@ const SingleGuitar = () => {
                             <Rating
                                 className='rate'
                                 name="simple-controlled"
-                                value={0}
-                                onChange={(newValue) => {
+                                onChange={(event, newValue) => {
                                     setCommentRate(newValue);
                                     console.log(newValue)
                                 }}
