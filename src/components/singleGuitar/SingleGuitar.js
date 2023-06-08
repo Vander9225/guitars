@@ -11,9 +11,9 @@ import './singleGuitar.css';
 const SingleGuitar = () => {
     const [guitar, setGuitar] = useState();
     const [loading, setLoading] = useState(true);
-    const [comment, setComment] = useState();
+    const [comment, setComment] = useState('');
     const [comments,setComments] = useState([]);
-    const [commentRate, setCommentRate] = useState();
+    const [commentRate, setCommentRate] = useState(0);
     const {guitarId} = useParams();
 
     
@@ -92,10 +92,10 @@ const SingleGuitar = () => {
                     <form id="usrform" onSubmit={onSubmit}>
                             <Rating
                                 className='rate'
+                                value={commentRate}
                                 name="simple-controlled"
                                 onChange={(event, newValue) => {
-                                    setCommentRate(newValue);
-                                    console.log(newValue)
+                                    setCommentRate(newValue)
                                 }}
                             />  
                         <textarea className='comment-place' name="comment" form="usrform" value={comment} 
