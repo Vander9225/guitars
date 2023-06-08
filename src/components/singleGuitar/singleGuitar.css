@@ -1,0 +1,151 @@
+#tab1, #tab2 { 
+    display: none; 
+} 
+.labelTab { 
+    display: inline-block; 
+    width: 180px; 
+    padding: 15px; 
+    background: rgb(215, 214, 214); 
+    cursor: pointer; 
+    border: 2px solid rgb(215, 214, 214);
+    text-align: left;
+    position: relative;
+    top: 10px;
+    right: 300px;
+} 
+#tab1:checked + label, #tab2:checked + label { 
+    color: #555; 
+    background: white; 
+} 
+section { 
+    display: none;
+} 
+
+#tab1:checked ~ #content1, #tab2:checked ~ #content2 { 
+    display: block; 
+}
+
+
+.single-guitar{
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    width: 1280px;
+    border: 2px solid;
+    border-color: rgb(215, 214, 214);
+    border-radius: 5px;
+    padding: 20px;
+    overflow: hidden;
+    z-index: 2;
+    & h1{
+        font-family: 'Roboto';
+        padding: 15px;
+    }
+    & h2{
+        font-family: 'Roboto';
+        padding: 10px;
+    }
+    & p{
+        padding: 20px;
+    }
+}
+.guitar-slider{
+    height: 400px;
+    width: 1280px;
+
+}
+.single-guitar-image{
+    display: inline-block;
+    transform:translate( 420px, -400px) rotate(90deg);
+    height: 1200px;
+    width: 416px;
+}
+
+.view-input{
+    border: 2px solid rgb(215, 214, 214);
+    border-radius: 5px;
+    padding: 10px;
+    width: 75%;
+    height: 100px;
+    margin: 30px;
+}
+.comments{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 1280px;
+    border: 2px solid;
+    border-color: rgb(215, 214, 214);
+    border-radius: 5px;
+    padding: 20px;
+
+}
+#usrform{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.comment-place{
+    font-size: 18px;
+    border: 2px solid;
+    border-color: rgb(215, 214, 214);
+    border-radius: 5px;
+    width: 750px;
+    height: 200px;
+    padding: 20px;
+    resize: none;
+    margin: 20px;
+}
+.submit{
+    display: none;
+}
+.submitButton{
+    position: relative;
+    bottom: 35px;
+    right: 50px;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+    background: rgb(215, 214, 214);
+    padding: 15px;
+    margin: 0 20px;
+    width: 30%;
+}
+.comment{
+    position: relative;
+    text-align: start;
+    font-size: 18px;
+    border: 2px solid;
+    border-color: rgb(215, 214, 214);
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px;
+    width: 746px;
+}
+.comment-rate{
+    position: absolute;
+    padding: 2px;
+    display: block;
+    border: 2px solid;
+    background-color: #fff;
+    border-color: rgb(215, 214, 214);
+    text-align: center;
+    left: 60px;
+    bottom: 40px;
+    color: #ccc;
+}
+.comment-date{
+    font-size: 12px;
+    color: #c7c6c6;
+    text-align: end;
+}
+
+.rate {
+    padding: 5px;
+    background: rgb(215, 214, 214);
+    position: relative;
+    top: 30px;
+    right: 560px;
+}
