@@ -9,10 +9,7 @@ const AppHeader = () => {
     const [authUser, setAuthUser] = useState(null);
     const [signIn, setSignIn] = useState(false);
     const [register, setRegister] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [emailRegister, setEmailRegister] = useState('');
-    const [passwordRegister, setPasswordRegister] = useState('');
+    const [authMessage, setAuthMessage] = useState(null);
 
     useEffect(() => {
         const listen =  onAuthStateChanged(auth, (user) => {
@@ -28,70 +25,124 @@ const AppHeader = () => {
     const userSignOut = (e) => {
         e.preventDefault();
         signOut(auth)
-            .then(() => setAuthUser(null))
-            .catch(error => console.log(error))
-    }
-    const handleRegister = (e) => {
-        e.preventDefault();
-        createUserWithEmailAndPassword(auth, emailRegister, passwordRegister)
-            .then((userCredential) => {
-                console.log(userCredential)
-            }).catch((error) =>{
-                console.log(error)
+            .then(() =>{
+                setAuthUser(null);
             })
+            .catch(error => setAuthMessage(error))
     }
-    const handleSignIn = (e) => {
-        e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log(userCredential);
-                setAuthUser(userCredential);
-            }).catch((error) =>{
-                console.log(error)
-            })
-    }
+
 
     const onRegister = () => {
         setRegister(!register);
         setSignIn(false);
+        setAuthMessage(null);
     }
     const onSignIn = () => {
         setSignIn(!signIn);
         setRegister(false);
+        setAuthMessage(null);
+    }
+    const goBack = () => {
+        setAuthMessage(null);
     }
 
-    const registerForm = register ?     <form className='modal'
-                                            onSubmit={handleRegister}>
-                                            <span>E-mail: </span>
-                                            <input className='mail' 
-                                                type='email' 
-                                                value={emailRegister}
-                                                onChange={(e) => setEmailRegister(e.target.value)}/>
-                                            <span>Password: </span>
-                                            <input className='password' 
-                                                type='password' 
-                                                value={passwordRegister}
-                                                onChange={(e) => setPasswordRegister(e.target.value)}/>
-                                            <input className='submit' id='submitRegister' type='submit'/>
-                                            <label htmlFor='submitRegister'>Register</label>
-                                        </form>
-                                        : null;
-    const signForm = signIn ?   <form className='modal'
-                                    onSubmit={handleSignIn}>
-                                    <span>E-mail: </span>
-                                    <input className='mail' 
-                                        type='email' 
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}/>
-                                    <span>Password: </span>
-                                    <input className='password' 
-                                        type='password' 
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}/>
-                                    <input className='submit' id='submitSign' type='submit'/>
-                                    <label htmlFor='submitSign'>Sign In</label>
-                                </form> : null;
-    const forms = registerForm || signForm;
+    const RegisterForm = () => {
+
+        const [emailRegister, setEmailRegister] = useState('');
+        const [passwordRegister, setPasswordRegister] = useState('');
+    
+
+        const handleRegister = (e) => {
+            e.preventDefault();
+            createUserWithEmailAndPassword(auth, emailRegister, passwordRegister)
+                .then((userCredential) => {
+                    console.log(userCredential)
+                }).catch((error) =>{
+                    if(error.code){
+                        setAuthMessage(error.code)
+                    }
+                })
+        }
+
+            
+        if(register && !authMessage){
+            return(
+                <form className='modal'
+                    onSubmit={handleRegister}>
+                    <span>E-mail: </span>
+                    <input className='mail' 
+                        type='email' 
+                        value={emailRegister}
+                        onChange={(e) => setEmailRegister(e.target.value)}/>
+                    <span>Password: </span>
+                    <input className='password' 
+                        type='password' 
+                        value={passwordRegister}
+                        onChange={(e) => setPasswordRegister(e.target.value)}/>
+                    <input className='submit' id='submitRegister' type='submit'/>
+                    <label className='signOutButton' htmlFor='submitRegister'>Register</label>
+                </form>
+            )   
+        }else if(authMessage && register){
+            return (
+                <div className='modal'>
+                    <span>{authMessage}</span>
+                    <button className='signOutButton' onClick={goBack}>Go back</button>
+                </div> 
+            )
+        }else{
+            return null
+        }
+    };
+
+    const SignForm = () => {
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+    
+
+        const handleSignIn = (e) => {
+            e.preventDefault();
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    console.log(userCredential);
+                    setAuthUser(userCredential);
+                }).catch((error) =>{
+                    setAuthMessage(error.code)
+                })
+        }
+
+        if(signIn && !authMessage){
+            return(
+                <form className='modal'
+                    onSubmit={handleSignIn}>
+                    <span>E-mail: </span>
+                    <input className='mail' 
+                        type='email' 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}/>
+                    <span>Password: </span>
+                    <input className='password' 
+                        type='password' 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}/>
+                    <input className='submit' id='submitSign' type='submit'/>
+                    <label className='signOutButton' htmlFor='submitSign'>Sign In</label>
+                </form>
+            )
+        }else if(authMessage && signIn){
+            return (
+                <div className='modal'>
+                    <span>{authMessage}</span>
+                    <button className='signOutButton' onClick={goBack}>Go back</button>
+                </div>
+            )
+        }else{
+            return null
+        }
+    }
+
+    
+    
 
     return (
         <div className="App-header">
@@ -108,7 +159,8 @@ const AppHeader = () => {
                                     <button className='signOutButton'
                                         onClick={onRegister}
                                         >Register</button>
-                                    {forms}      
+                                    <SignForm/> 
+                                    <RegisterForm/>     
                                   </>
                 }
             </div>
