@@ -16,25 +16,25 @@ const AppHeader = () => {
     const registerRef = useRef(null);
     const signInRef = useRef(null);
     
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-          if ((registerRef.current && !registerRef.current.contains(event.target)) &&
-            (signInRef.current && !signInRef.current.contains(event.target))) {
-            setRegister(false);
-            setSignIn(false);
-          }else if(registerRef.current && registerRef.current.contains(event.target)){
-                onRegister();
-          }else if(signInRef.current && signInRef.current.contains(event.target)){
-            onSignIn();
-          }
-        };
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //       if ((registerRef.current && !registerRef.current.contains(event.target)) &&
+    //         (signInRef.current && !signInRef.current.contains(event.target))) {
+    //         setRegister(false);
+    //         setSignIn(false);
+    //       }else if(registerRef.current && registerRef.current.contains(event.target)){
+    //             onRegister();
+    //       }else if(signInRef.current && signInRef.current.contains(event.target)){
+    //         onSignIn();
+    //       }
+    //     };
     
-        document.addEventListener('click', handleClickOutside);
+    //     document.addEventListener('click', handleClickOutside);
     
-        return () => {
-          document.removeEventListener('click', handleClickOutside);
-        };
-      }, []);
+    //     return () => {
+    //       document.removeEventListener('click', handleClickOutside);
+    //     };
+    //   }, []);
 
     useEffect(() => {
         const listen =  onAuthStateChanged(auth, (user) => {
