@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {useRef, useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import { auth } from "../../api";
 import { onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
 import { CircularProgress } from '@mui/material';
 import './appHeader.css';
 
@@ -12,7 +13,28 @@ const AppHeader = () => {
     const [register, setRegister] = useState(false);
     const [authMessage, setAuthMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-
+    const registerRef = useRef(null);
+    const signInRef = useRef(null);
+    
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if ((registerRef.current && !registerRef.current.contains(event.target)) &&
+            (signInRef.current && !signInRef.current.contains(event.target))) {
+            setRegister(false);
+            setSignIn(false);
+          }else if(registerRef.current && registerRef.current.contains(event.target)){
+                onRegister();
+          }else if(signInRef.current && signInRef.current.contains(event.target)){
+            onSignIn();
+          }
+        };
+    
+        document.addEventListener('click', handleClickOutside);
+    
+        return () => {
+          document.removeEventListener('click', handleClickOutside);
+        };
+      }, []);
 
     useEffect(() => {
         const listen =  onAuthStateChanged(auth, (user) => {
@@ -179,9 +201,11 @@ const AppHeader = () => {
                                 : <>
                                     <button className='signOutButton'
                                         onClick={onSignIn}
+                                        ref={signInRef}
                                         >Sign in</button>
                                     <button className='signOutButton'
                                         onClick={onRegister}
+                                        ref={registerRef}
                                         >Register</button>
                                     <SignForm/> 
                                     <RegisterForm/>     
