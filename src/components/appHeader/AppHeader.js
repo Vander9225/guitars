@@ -13,28 +13,32 @@ const AppHeader = () => {
     const [register, setRegister] = useState(false);
     const [authMessage, setAuthMessage] = useState(null);
     const [loading, setLoading] = useState(false);
+
     const registerRef = useRef(null);
     const signInRef = useRef(null);
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if ((registerRef.current && !registerRef.current.contains(event.target)) &&
+            (signInRef.current && !signInRef.current.contains(event.target)) && 
+            (modalRef.current && !modalRef.current.contains(event.target))) {
+            setRegister(false);
+            setSignIn(false);
+          }else if(registerRef.current && registerRef.current.contains(event.target)){
+                onRegister();
+          }else if(signInRef.current && signInRef.current.contains(event.target)){
+            onSignIn();
+          }
+          console.log(modalRef)
+        };
     
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //       if ((registerRef.current && !registerRef.current.contains(event.target)) &&
-    //         (signInRef.current && !signInRef.current.contains(event.target))) {
-    //         setRegister(false);
-    //         setSignIn(false);
-    //       }else if(registerRef.current && registerRef.current.contains(event.target)){
-    //             onRegister();
-    //       }else if(signInRef.current && signInRef.current.contains(event.target)){
-    //         onSignIn();
-    //       }
-    //     };
+        document.addEventListener('click', handleClickOutside);
     
-    //     document.addEventListener('click', handleClickOutside);
-    
-    //     return () => {
-    //       document.removeEventListener('click', handleClickOutside);
-    //     };
-    //   }, []);
+        return () => {
+          document.removeEventListener('click', handleClickOutside);
+        };
+      }, []);
 
     useEffect(() => {
         const listen =  onAuthStateChanged(auth, (user) => {
@@ -54,7 +58,9 @@ const AppHeader = () => {
         signOut(auth)
             .then(() =>{
                 setAuthUser(null);
-                setLoading(false)
+                setLoading(false);
+                setSignIn(false);
+                setRegister(false);
             })
             .catch(error => setAuthMessage(error.code.split('auth/').join('').replaceAll('-', ' ')))
     }
@@ -99,7 +105,8 @@ const AppHeader = () => {
         if(register && !authMessage && !loading){
             return(
                 <form className='modal'
-                    onSubmit={handleRegister}>
+                    onSubmit={handleRegister}
+                    ref={modalRef}>
                     <span>E-mail: </span>
                     <input className='mail' 
                         type='email' 
@@ -116,14 +123,17 @@ const AppHeader = () => {
             )   
         }else if(authMessage && register && !loading){
             return (
-                <div className='modal'>
+                <div className='modal'
+                    ref={modalRef}>
                     <span>{authMessage}</span>
                     <button className='signOutButton' onClick={goBack}>Go back</button>
                 </div> 
             )
         }else if(loading && register){
             return(
-                <div className='modal' style={{alignItems: 'center'}}>
+                <div className='modal'
+                    style={{alignItems: 'center'}}
+                    ref={modalRef}>
                     <CircularProgress disableShrink />
                 </div>
             )
@@ -154,7 +164,8 @@ const AppHeader = () => {
         if(signIn && !authMessage && !loading){
             return(
                 <form className='modal'
-                    onSubmit={handleSignIn}>
+                    onSubmit={handleSignIn}
+                    ref={modalRef}>
                     <span>E-mail: </span>
                     <input className='mail' 
                         type='email' 
@@ -171,14 +182,17 @@ const AppHeader = () => {
             )
         }else if(authMessage && signIn && !loading){
             return (
-                <div className='modal'>
+                <div className='modal'
+                    ref={modalRef}>
                     <span>{authMessage}</span>
                     <button className='signOutButton' onClick={goBack}>Go back</button>
                 </div>
             )
         }else if(loading && signIn){
             return(
-                <div className='modal' style={{alignItems: 'center'}}>
+                <div className='modal' 
+                    style={{alignItems: 'center'}}
+                    ref={modalRef}>
                     <CircularProgress disableShrink />
                 </div>
             )
