@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import { auth } from "../../api";
 import { onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { CircularProgress } from '@mui/material';
 import './appHeader.css';
 
 
@@ -10,6 +11,8 @@ const AppHeader = () => {
     const [signIn, setSignIn] = useState(false);
     const [register, setRegister] = useState(false);
     const [authMessage, setAuthMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
         const listen =  onAuthStateChanged(auth, (user) => {
@@ -22,13 +25,16 @@ const AppHeader = () => {
         return listen();
     },[authUser]);
 
+
     const userSignOut = (e) => {
         e.preventDefault();
+        setLoading(true)
         signOut(auth)
             .then(() =>{
                 setAuthUser(null);
+                setLoading(false)
             })
-            .catch(error => setAuthMessage(error))
+            .catch(error => setAuthMessage(error.code.split('auth/').join('').replaceAll('-', ' ')))
     }
 
 
@@ -50,22 +56,25 @@ const AppHeader = () => {
 
         const [emailRegister, setEmailRegister] = useState('');
         const [passwordRegister, setPasswordRegister] = useState('');
-    
+
 
         const handleRegister = (e) => {
             e.preventDefault();
+            setLoading(true)
             createUserWithEmailAndPassword(auth, emailRegister, passwordRegister)
                 .then((userCredential) => {
                     console.log(userCredential)
+                    setLoading(false)
                 }).catch((error) =>{
                     if(error.code){
-                        setAuthMessage(error.code)
+                        setLoading(false)
+                        setAuthMessage(error.code.split('auth/').join('').replaceAll('-', ' '))
                     }
                 })
         }
 
             
-        if(register && !authMessage){
+        if(register && !authMessage && !loading){
             return(
                 <form className='modal'
                     onSubmit={handleRegister}>
@@ -83,12 +92,18 @@ const AppHeader = () => {
                     <label className='signOutButton' htmlFor='submitRegister'>Register</label>
                 </form>
             )   
-        }else if(authMessage && register){
+        }else if(authMessage && register && !loading){
             return (
                 <div className='modal'>
                     <span>{authMessage}</span>
                     <button className='signOutButton' onClick={goBack}>Go back</button>
                 </div> 
+            )
+        }else if(loading && register){
+            return(
+                <div className='modal' style={{alignItems: 'center'}}>
+                    <CircularProgress disableShrink />
+                </div>
             )
         }else{
             return null
@@ -102,16 +117,19 @@ const AppHeader = () => {
 
         const handleSignIn = (e) => {
             e.preventDefault();
+            setLoading(true)
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     console.log(userCredential);
                     setAuthUser(userCredential);
+                    setLoading(false)
                 }).catch((error) =>{
-                    setAuthMessage(error.code)
+                    setLoading(false)
+                    setAuthMessage(error.code.split('auth/').join('').replaceAll('-', ' '))
                 })
         }
 
-        if(signIn && !authMessage){
+        if(signIn && !authMessage && !loading){
             return(
                 <form className='modal'
                     onSubmit={handleSignIn}>
@@ -129,11 +147,17 @@ const AppHeader = () => {
                     <label className='signOutButton' htmlFor='submitSign'>Sign In</label>
                 </form>
             )
-        }else if(authMessage && signIn){
+        }else if(authMessage && signIn && !loading){
             return (
                 <div className='modal'>
                     <span>{authMessage}</span>
                     <button className='signOutButton' onClick={goBack}>Go back</button>
+                </div>
+            )
+        }else if(loading && signIn){
+            return(
+                <div className='modal' style={{alignItems: 'center'}}>
+                    <CircularProgress disableShrink />
                 </div>
             )
         }else{
