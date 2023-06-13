@@ -1,13 +1,13 @@
 import React from 'react';
-import AppHeader from '../appHeader/AppHeader';
-
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import { Carousel } from 'react-responsive-carousel';
 import './mainPage.css';
 
 const MainPage = () => {
 
     return (
         <>
-            <AppHeader/>
+            
         </>
 
     )

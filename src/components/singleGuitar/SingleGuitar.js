@@ -4,7 +4,6 @@ import { Rating } from '@mui/material';
 import {useState, useEffect} from 'react';
 import db from '../../api';
 import { fetchData, addComment, fetchComments } from '../../client';
-import AppHeader from '../appHeader/AppHeader';
 import Spinner from '../spinner/Spinner';
 import './singleGuitar.css';
 
@@ -51,7 +50,6 @@ const SingleGuitar = () => {
     
     return (
         <>
-            <AppHeader/>
             <input id="tab1" type="radio" name='tabs' defaultChecked/> 
             <label className='labelTab' htmlFor="tab1">{guitar ? guitar.model : 'GUITAR'}</label> 
             <input id="tab2" type="radio" name='tabs'/> 

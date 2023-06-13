@@ -7,7 +7,6 @@ import { fetchDatas } from '../../client';
 import db from '../../api';
 
 import './guitarList.css'
-import AppHeader from '../appHeader/AppHeader';
 
 
 
@@ -59,7 +58,6 @@ const GuitarList = () => {
 
     return (
         <>
-            <AppHeader/>
             {viewItems}
         </>
 
