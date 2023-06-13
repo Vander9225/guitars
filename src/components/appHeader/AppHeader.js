@@ -30,7 +30,6 @@ const AppHeader = () => {
           }else if(signInRef.current && signInRef.current.contains(event.target)){
             onSignIn();
           }
-          console.log(modalRef)
         };
     
         document.addEventListener('click', handleClickOutside);

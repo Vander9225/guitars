@@ -23,7 +23,6 @@ const SingleGuitar = () => {
             const commentData = await fetchComments(db, guitarId);
             if(commentData.length > comments.length){
                 setComments(commentData);
-                console.log(commentData);
             }
             setGuitar(res);
             setLoading(false)

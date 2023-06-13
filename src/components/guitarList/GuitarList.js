@@ -21,7 +21,7 @@ const GuitarList = () => {
     useEffect(() => {
         setLoading(true);
         const getData = async () => {
-            const newGuitars = await fetchDatas(db, 'type', category);
+            const newGuitars = await fetchDatas(db, 'type', '==', category);
             setLoading(false);      
             setGuitarList(newGuitars); 
         }
