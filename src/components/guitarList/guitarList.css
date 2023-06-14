@@ -14,9 +14,11 @@
     border-color: rgb(215, 214, 214);
     border-radius: 5px;
     padding: 20px;
+    text-align: center;
 }
 
 .guitar-image {
+    margin: 0 auto; 
     width: 130px;
     height: 300px;
 }
