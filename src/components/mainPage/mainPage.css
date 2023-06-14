@@ -1,3 +1,27 @@
 
+.carousel-container{
+padding: 40px 0;
 
 
+}
+
+.Carousel__Container-sc-hyhecw-0{
+    position: relative;
+    width: 500px;
+}
+
+.Carousel__RailWrapper-sc-hyhecw-1{
+
+}
+.Carousel__Item-sc-hyhecw-5{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
+.guitar-card{
+  display: block;
+}
+.guitar-image{
+    display: block;
+}

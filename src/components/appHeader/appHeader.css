@@ -6,11 +6,7 @@
     padding: 20px;
     & h1 {
         font-family: 'Roboto';
-        padding-bottom: 10px;
-    }
-    & h2 {
-        font-family: serif;
-        padding-bottom: 20px;
+        padding-bottom: 60px;
     }
     .categories {
         display: flex;

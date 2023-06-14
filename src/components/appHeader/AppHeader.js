@@ -229,7 +229,6 @@ const AppHeader = () => {
             <Link to={'/'}>
                 <h1>HAMBACKER GUITARS</h1>
             </Link>
-            <h2>Make rock great again!!!</h2>
             <ul className='categories'>
                 <Link className='link' to={`/electro`}>
                     <li>
