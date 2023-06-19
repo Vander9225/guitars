@@ -235,9 +235,9 @@ const AppHeader = () => {
                         <button name='electro'>Electro</button>
                     </li>
                 </Link>
-                <Link className='link' to={`/bas`}>
+                <Link className='link' to={`/bass`}>
                     <li>
-                        <button name='bas'>Bas</button>
+                        <button name='bass'>Bass</button>
                     </li>
                 </Link>
                 <Link className='link' to={`/acoustic`}>
