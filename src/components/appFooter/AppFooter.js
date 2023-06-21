@@ -12,6 +12,7 @@ const AppFooter = () =>{
         <div className="footer">
             <a className="social" href="https://github.com/Vander9225/guitars"><img src={gitHubMark}/><img src={gitHubLogo}/></a>
             <a className="social" href="tel:+380995317209">+38 099 531 72 09</a>
+            <a className="social" href="mailto: vanserkons@gmail.com">Vanserkons@gmail.com</a>
         </div>
     )
 }

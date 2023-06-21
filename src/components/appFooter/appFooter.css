@@ -4,7 +4,7 @@
     flex-direction: row;
     justify-content: end;
     gap: 20px;
-    padding: 5px;
+    padding: 10px;
 }
 
 .social{
@@ -12,7 +12,7 @@
     flex-direction: row;
     min-width: 30px;
     height: 25px;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 900;
     align-items: center;
     & img{
