@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from 'better-react-carousel';
 import { fetchDatas } from '../../client';
 import db from '../../api';
-
+import { AppContext } from '../AppContext'; 
 import Spinner from '../spinner/Spinner'
 import './mainPage.css';
 
 const MainPage = () => {
 
     const [items, setItems] = useState();
-    const [loading, setLoading] = useState(false);
+    const { loading, setLoading } = useContext(AppContext);
 
     useEffect(() =>{
         setLoading(true);
@@ -20,7 +20,7 @@ const MainPage = () => {
             setLoading(false);
             return guitars;
         }
-         getGuitars();
+        getGuitars();
          
     },[])
 

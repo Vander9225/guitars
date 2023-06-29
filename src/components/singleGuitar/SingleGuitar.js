@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Rating } from '@mui/material';
 import {useState, useEffect} from 'react';
 import db from '../../api';
+import { getAuth } from "firebase/auth";
 import { fetchData, addComment, fetchComments } from '../../client';
 import Spinner from '../spinner/Spinner';
 import './singleGuitar.css';
@@ -28,6 +29,7 @@ const SingleGuitar = () => {
             setLoading(false)
         }
         getData();
+        console.log(getAuth())
     }, [comments]);
 
     const onSubmit = async (e) => {
