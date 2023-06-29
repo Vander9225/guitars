@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../AppContext'; 
 import { useParams } from 'react-router-dom';
 import { Rating } from '@mui/material';
 import {useState, useEffect} from 'react';
 import db from '../../api';
-import { getAuth } from "firebase/auth";
-import { fetchData, addComment, fetchComments } from '../../client';
+
 import Spinner from '../spinner/Spinner';
 import './singleGuitar.css';
 
 const SingleGuitar = () => {
+
+    const { fetchComments, fetchData, addComment, loading, setLoading } = useContext(AppContext);
+
     const [guitar, setGuitar] = useState();
-    const [loading, setLoading] = useState(true);
     const [comment, setComment] = useState('');
     const [comments,setComments] = useState([]);
     const [commentRate, setCommentRate] = useState(0);
     const {guitarId} = useParams();
 
-    
+
     
     useEffect(() => {
         const getData = async () => {
@@ -25,11 +27,11 @@ const SingleGuitar = () => {
             if(commentData.length > comments.length){
                 setComments(commentData);
             }
+            
             setGuitar(res);
-            setLoading(false)
+            setLoading(false);
         }
         getData();
-        console.log(getAuth())
     }, [comments]);
 
     const onSubmit = async (e) => {
