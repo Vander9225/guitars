@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import gitHubLogo from '../../images/GitHub_Logo.png';
 import gitHubMark from '../../images/github-mark.png';
 

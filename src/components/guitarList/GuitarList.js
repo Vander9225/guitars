@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Spinner from '../spinner/Spinner';
-
+import { AppContext } from '../AppContext'; 
 import {Link, useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import { fetchDatas } from '../../client';
@@ -13,14 +13,14 @@ import './guitarList.css'
 
 
 const GuitarList = () => {
-    
+
+    const {loading, setLoading} = useContext(AppContext);
     const [guitarList, setGuitarList] = useState();
-    const [loading, setLoading] = useState(true);
     const {category} = useParams();
 
     useEffect(() => {
-        setLoading(true);
         const getData = async () => {
+            setLoading(true);
             const newGuitars = await fetchDatas(db, 'type', '==', category);
             setLoading(false);      
             setGuitarList(newGuitars); 
@@ -28,6 +28,10 @@ const GuitarList = () => {
         getData();
           
     }, [category]);
+
+    // const onLoading = () =>{
+    //     setLoading(true)
+    // }
 
     const renderItems = (guitarList) => {
 

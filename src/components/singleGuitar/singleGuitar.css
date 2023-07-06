@@ -27,7 +27,6 @@ section {
 
 
 .single-guitar{
-    cursor: pointer;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -47,9 +46,9 @@ section {
         font-family: 'Roboto';
         padding: 10px;
     }
-    & p{
+    /* & p{
         padding: 20px;
-    }
+    } */
 }
 .guitar-slider{
     height: 400px;
@@ -114,7 +113,7 @@ section {
     width: 30%;
 }
 .comment{
-    position: relative;
+    word-wrap: break-word;
     text-align: start;
     font-size: 18px;
     border: 2px solid;
@@ -125,15 +124,14 @@ section {
     width: 746px;
 }
 .comment-rate{
-    position: absolute;
     padding: 2px;
     display: block;
     border: 2px solid;
     background-color: #fff;
     border-color: rgb(215, 214, 214);
     text-align: center;
-    left: 60px;
-    bottom: 40px;
+    right: 225px;
+    top: 30px;
     color: #ccc;
 }
 .comment-date{
@@ -149,3 +147,4 @@ section {
     top: 30px;
     right: 560px;
 }
+

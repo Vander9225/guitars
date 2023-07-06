@@ -52,17 +52,17 @@ const AppHeader = () => {
       <ul className="categories">
         <Link className="link" to={`/electro`}>
           <li>
-            <button name="electro">Electro</button>
+            <button  name="electro">Electro</button>
           </li>
         </Link>
         <Link className="link" to={`/bass`}>
           <li>
-            <button name="bass">Bass</button>
+            <button  name="bass">Bass</button>
           </li>
         </Link>
         <Link className="link" to={`/acoustic`}>
           <li>
-            <button name="acoustic">Acoustic</button>
+            <button  name="acoustic">Acoustic</button>
           </li>
         </Link>
       </ul>
