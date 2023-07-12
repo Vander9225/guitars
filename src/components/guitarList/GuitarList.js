@@ -29,9 +29,6 @@ const GuitarList = () => {
           
     }, [category]);
 
-    // const onLoading = () =>{
-    //     setLoading(true)
-    // }
 
     const renderItems = (guitarList) => {
 

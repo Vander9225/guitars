@@ -62,10 +62,12 @@ const SingleGuitar = () => {
               <div className="guitar-slider">
                 <img className="single-guitar-image" src={guitar.image} alt="guitar" />
               </div>
-              <h1>{guitar.brand}</h1>
-              <h2>{guitar.model}</h2>
-              <p>Strings: {guitar.strings}</p>
-              <p>{guitar.description}</p>
+              <div className='single-guitar-descr'>
+                <h1>{guitar.brand}</h1>
+                <h2>{guitar.model}</h2>
+                <p>Strings: {guitar.strings}</p>
+                <p>{guitar.description}</p>
+              </div>
             </div>
           </section>
         <section id="content2">
