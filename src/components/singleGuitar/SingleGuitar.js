@@ -55,7 +55,7 @@ const SingleGuitar = () => {
         </label>
         <input id="tab2" type="radio" name="tabs" />
         <label className="labelTab" htmlFor="tab2">
-          Reviews
+          Відгуки
         </label>
           <section id="content1">
             <div className="single-guitar">
@@ -75,8 +75,11 @@ const SingleGuitar = () => {
             {
               comments.map((element, i) => {
                 return (
-                  <div key={i}>
-                    <Rating className="comment-rate" name="read-only" value={element.rate} readOnly />
+                  <div className='comment-box' key={i}>
+                    <div className='rate-box'>
+                      <Rating className="comment-rate" name="read-only" value={element.rate} readOnly />
+                      <p className='rate-vote'><span className='vote-direction'>▲</span>0<span className='vote-direction'>▼</span></p>
+                    </div>
                     <div  className="comment">
                         <p className='comment-text'>{element.email.split("@")[0].charAt(0).toUpperCase() + element.email.split("@")[0].slice(1)}</p>
                         <p className="comment-text">{element.comment}</p>

@@ -51,7 +51,6 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* position: relative; */
     max-width: 100%;
     max-height: 400px;
     overflow: hidden;
@@ -59,7 +58,6 @@ section {
   
   .single-guitar-image {
     display: block;
-    /* position: absolute; */
     transform: rotate(90deg) ;
     object-fit: contain;
     width: 100%;
@@ -115,15 +113,18 @@ section {
 }
 .submitButton{
     position: relative;
-    bottom: 35px;
+    bottom: 10px;
     right: -150px;
     cursor: pointer;
     display: block;
     font-size: 18px;
     background: rgb(215, 214, 214);
-    padding: 15px;
+    padding: 5px;
     margin: 0 20px;
     width: 30%;
+}
+.comment-box{
+    padding: 20px;
 }
 .comment{
     /* display: block; */
@@ -134,8 +135,23 @@ section {
     border-color: rgb(215, 214, 214);
     border-radius: 5px;
     padding: 15px;
-    margin: 20px;
     width: 746px;
+}
+.rate-box{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 10px; 
+   
+}
+.rate-vote{
+    display: block;
+    color:#555;
+}
+.vote-direction{
+    padding: 0 5px;
+    color: rgb(215, 214, 214); 
+    cursor: pointer;
 }
 .comment-rate{
     padding: 2px;
@@ -144,8 +160,6 @@ section {
     background-color: #fff;
     border-color: rgb(215, 214, 214);
     text-align: center;
-    right: 225px;
-    top: 30px;
     color: #ccc;
 }
 .comment-date{
@@ -163,9 +177,15 @@ section {
 }
 
 @media screen and (max-width: 1000px) {
+    .comment-box{
+        padding: 0px;
+    }
+    .comments{
+        padding: 10px;
+    }
     .single-guitar-image {
       max-height: 500px;
-      transform: rotate(35deg)
+      transform: rotate(15deg)
      
     }
     .labelTab { 
@@ -177,11 +197,13 @@ section {
         max-height: 600px;
       }
     #usrform{
-        width: 350px;
+        width: 340px;
+        margin: 0;
     }
     .comment{
         font-size: 14px;
-        width: 350px;
+        width: 340px;
+        margin: 0 auto;
     }
     .rate {
         padding: 5px;
@@ -190,6 +212,7 @@ section {
         top: 10px;
         right: 15%;
     }
+
     .comment-rate{
         padding: 2px;
         display: block;
@@ -197,8 +220,6 @@ section {
         background-color: #fff;
         border-color: rgb(215, 214, 214);
         text-align: center;
-        right: 15%;
-        top: 30px;
     }
     .submitButton{
         bottom: 10px;
@@ -206,6 +227,9 @@ section {
         margin: 0;
         width: 30%;
         padding: 5px;
+    }
+    .comment-place{
+        width: 340px;
     }
     
   }

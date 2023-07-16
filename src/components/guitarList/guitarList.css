@@ -37,3 +37,17 @@
     transition: .2s;
     transform: translateY(10px);
 }
+@media screen and (max-width: 1000px){
+    .guitar {
+        width: 120px;
+        height: 250px;
+        & p{
+            font-size: 10px;
+        }
+    }
+    .guitar-image {
+        margin: 0 auto; 
+        width: 70px;
+        height: 170px;
+    }
+}

@@ -37,7 +37,7 @@ const MainPage = () => {
     )
 
     const carouselStyle = {
-        width: '350px',
+        maxWidth: '350px',
         display: 'flex',
         justifyContent: 'space-around',
         flexDirection: 'row',
@@ -70,9 +70,9 @@ const MainPage = () => {
                 </Carousel>
                 <div className='title-text'>
                     <h2>Welcome to HAMBACKER GUITARS! <br/>
-                        Introducing our unique online store dedicated to guitars. Here, you will find the widest selection of instruments suitable for every skill level and musical style.<br/>
-                        Our guitars are more than just instruments; they embody a passion for music. We meticulously curate each model to offer you the best sound quality, playing comfort, and aesthetic pleasure.<br/>
-                        Whether you're a beginner guitarist or an experienced musician, our online store provides a wide range of guitars, accessories, and related products to help you unleash your creative potential.<br/>
+                        Introducing our unique online store dedicated to guitars. Here, you will find the widest selection of instruments suitable for every skill level and musical style.<br/><br/>
+                        Our guitars are more than just instruments; they embody a passion for music. We meticulously curate each model to offer you the best sound quality, playing comfort, and aesthetic pleasure.<br/><br/>
+                        Whether you're a beginner guitarist or an experienced musician, our online store provides a wide range of guitars, accessories, and related products to help you unleash your creative potential.<br/><br/>
                         Leave your doubts behind and join us today! Harness your musical abilities to create breathtaking melodies with our exceptional guitars. Your musical dreams will come to life with our guitar online store.
                     </h2>
                 </div>

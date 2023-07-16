@@ -47,7 +47,7 @@ const AppHeader = () => {
       </div>
 
       <Link to={'/'}>
-        <h1>HAMBACKER GUITARS</h1>
+        <h1>PET PROJECT</h1>
       </Link>
       <ul className="categories">
         <Link className="link" to={`/electro`}>
