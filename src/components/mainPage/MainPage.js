@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from 'better-react-carousel';
-import { fetchDatas } from '../../client';
 import db from '../../api';
 import { AppContext } from '../AppContext'; 
 import Spinner from '../spinner/Spinner'
@@ -10,7 +9,7 @@ import './mainPage.css';
 const MainPage = () => {
 
     const [items, setItems] = useState();
-    const { loading, setLoading } = useContext(AppContext);
+    const { loading, setLoading, fetchDatas } = useContext(AppContext);
 
     useEffect(() =>{
         setLoading(true);
@@ -49,14 +48,14 @@ const MainPage = () => {
     }else{
         return (
             <div className='main-page'>
-                <Carousel containerStyle={carouselStyle} dot={MyDot} cols={1} rows={1} gap={10} autoplay={2000} showDots loop>
+                <Carousel containerStyle={carouselStyle} dot={MyDot} cols={1} rows={1} gap={50} autoplay={2000} showDots loop>
                     {
                         items ? items.map((item) =>{
                             return (
                                     <Carousel.Item key={item.model}>
                                         <Link to={`/${item.category}/${item.brand} ${item.model}`}>
                                             <div>
-                                                <img className="guitar-image" alt={item.model} src={item.image} />
+                                                <img className="guitar-item" alt={item.model} src={item.image} />
                                             </div>
                                         </Link>
                                         <div  className='guitar-card'>

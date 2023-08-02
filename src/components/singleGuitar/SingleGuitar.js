@@ -3,6 +3,7 @@ import { AppContext } from '../AppContext';
 import { useParams } from 'react-router-dom';
 import { Rating } from '@mui/material';
 import { useState, useEffect } from 'react';
+import CommentItem from '../comment/Comment';
 import db from '../../api';
 
 import Spinner from '../spinner/Spinner';
@@ -21,34 +22,30 @@ const SingleGuitar = () => {
     const getData = async () => {
       const res = await fetchData(db, guitarId);
       const commentData = await fetchComments(db, guitarId);
-      if (commentData.length > comments.length) {
-        setComments(commentData);
-      }
+      setComments(commentData);
       setGuitar(res);
     };
-    setLoading(true);
+    // setLoading(true);
     getData();
-    setLoading(false);
-  }, [comments]);
+    // setLoading(false);
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     if (comment && commentRate) {
       await addComment(db, guitarId, comment, commentRate, authUser);
       setComment('');
-      setComments([]);
       setCommentRate(null);
+      const commentData = await fetchComments(db, guitarId);
+      setComments(commentData);
     } else {
-      setLoading(false);
       return;
     }
-    setLoading(false);
   };
 
   const renderItems = () => {
     return (
-      <>
+      <div className='single-guitar-page'>
         <input id="tab1" type="radio" name="tabs" defaultChecked />
         <label className="labelTab" htmlFor="tab1">
           {guitar ? guitar.model : 'GUITAR'}
@@ -73,19 +70,10 @@ const SingleGuitar = () => {
         <section id="content2">
           <div className="comments">
             {
-              comments.map((element, i) => {
+              comments.map((element) => {
+                // console.log(element.id)
                 return (
-                  <div className='comment-box' key={i}>
-                    <div className='rate-box'>
-                      <Rating className="comment-rate" name="read-only" value={element.rate} readOnly />
-                      <p className='rate-vote'><span className='vote-direction'>▲</span>0<span className='vote-direction'>▼</span></p>
-                    </div>
-                    <div  className="comment">
-                        <p className='comment-text'>{element.email.split("@")[0].charAt(0).toUpperCase() + element.email.split("@")[0].slice(1)}</p>
-                        <p className="comment-text">{element.comment}</p>
-                        <p className="comment-date">{element.date}</p>
-                    </div>
-                  </div>
+                  <CommentItem commentary={element} key={element.id}/>
                 );
               })
             }
@@ -112,7 +100,7 @@ const SingleGuitar = () => {
             </form>
           </div>
         </section>
-      </>
+      </div>
     );
   };
 

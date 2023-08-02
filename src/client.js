@@ -23,20 +23,20 @@ import { getStorage, ref, getDownloadURL} from "firebase/storage";
   //   return ddd;
   // }
 
-  export const fetchDatas = async (db, field, symbol, value) => {
+//   export const fetchDatas = async (db, field, symbol, value) => {
 
-        const q = query(collection(db, 'guitars'), where(field, symbol, value));
-        const fetchDocs = await getDocs(q);
-        const storage = getStorage();
-        const ddd = Promise.all(fetchDocs.docs.map(async (doc) => {
-            const {image, ...item} = doc.data();
-            return {
-                ...item,
-                image: await getDownloadURL(ref(storage, `${image._key.collectionGroup}/${image.id}`))
-            }
-        }));
-        return ddd;
-    }  
+//         const q = query(collection(db, 'guitars'), where(field, symbol, value));
+//         const fetchDocs = await getDocs(q);
+//         const storage = getStorage();
+//         const ddd = Promise.all(fetchDocs.docs.map(async (doc) => {
+//             const {image, ...item} = doc.data();
+//             return {
+//                 ...item,
+//                 image: await getDownloadURL(ref(storage, `${image._key.collectionGroup}/${image.id}`))
+//             }
+//         }));
+//         return ddd;
+//     }  
 
     // export const fetchData = async (db, model) => {
 

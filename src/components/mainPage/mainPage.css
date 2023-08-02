@@ -16,11 +16,20 @@
 
 .guitar-card{
   display: block;
+  margin: 0 20px;
 }
-.guitar-image{
+.guitar-item{
     display: block;
+    width: 140px;
+    height: 340px;
 }
 @media screen and (max-width: 1000px){
     .title-text{
-    font-size: 12px;   }
+    font-size: 12px;   
+}
+.guitar-item{
+    transform: rotate(45deg) ;
+    width: 140px;
+    height: 340px;
+}
 }

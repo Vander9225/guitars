@@ -3,7 +3,6 @@ import Spinner from '../spinner/Spinner';
 import { AppContext } from '../AppContext'; 
 import {Link, useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import { fetchDatas } from '../../client';
 import db from '../../api';
 
 import './guitarList.css'
@@ -14,7 +13,7 @@ import './guitarList.css'
 
 const GuitarList = () => {
 
-    const {loading, setLoading} = useContext(AppContext);
+    const {loading, setLoading, fetchDatas} = useContext(AppContext);
     const [guitarList, setGuitarList] = useState();
     const {category} = useParams();
 
