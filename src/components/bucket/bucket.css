@@ -1,0 +1,15 @@
+.bucket{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    max-width: 1280px;
+    height: 100%;
+    border: 2px solid;
+    border-color: rgb(215, 214, 214);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px 0;
+}
+.bucket-item{
+    
+}
