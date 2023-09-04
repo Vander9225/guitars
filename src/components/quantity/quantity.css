@@ -1,0 +1,19 @@
+.quantity{
+    display: block; 
+    background: rgb(255, 221, 3); 
+    border: none;
+    position: relative;
+    left: 45%;
+    padding: 0 5px;
+    width: 100px;
+    z-index: 3;
+    & button{
+        padding: 5px;
+        background-color: rgb(255, 221, 3);
+        border: none;
+    }
+}
+.crement{
+    cursor: pointer;
+    font-size: 18px;
+}

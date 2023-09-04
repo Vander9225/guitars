@@ -24,7 +24,6 @@ const CommentItem = ({commentary}) => {
         setVoteComment(vote + 1);
         setVoteUp(!voteUp);
         setVoteDown(false)
-        console.log(vote, voteComment)
         if(voteUp){
             setVoteComment(vote)
         }

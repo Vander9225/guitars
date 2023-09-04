@@ -1,9 +1,10 @@
 .bucket{
     display: flex;
-    align-items: flex-start;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     max-width: 1280px;
-    height: 100%;
+    gap: 30px;
     border: 2px solid;
     border-color: rgb(215, 214, 214);
     border-radius: 5px;
@@ -11,5 +12,38 @@
     margin: 20px 0;
 }
 .bucket-item{
-    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    border: 2px solid;
+    border-color: rgb(215, 214, 214);
+    border-radius: 5px;
+    padding: 15px;
+    width: 180px;
+}
+.image-box{
+    display: flex;
+    justify-content: center;
+    height: 400px;
+    width: 150px;
+}
+.bucket-item-img{
+    display: block;
+    object-fit: contain;
+    max-width: 150px;
+    max-height: 400px;
+}
+.remove-button{
+    position: absolute;
+    background-color: rgb(255, 221, 3);
+    border-radius: 50%;
+    right: -10px;
+    top: -10px;
+    height: 20px;
+    width: 20px;
+    & img{
+        width: 100%;
+    }
 }

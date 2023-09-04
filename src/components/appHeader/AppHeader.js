@@ -1,16 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../../api';
 import { signOut } from 'firebase/auth';
 import { AppContext } from '../AppContext'; 
+import useBucket from '../useBucket';
+import bucket from "../../images/shopping-cart.png"
 
 import './appHeader.css';
 
 const AppHeader = () => {
 
   const { authUser, setAuthUser } = useContext(AppContext);
+  const [bucketItems, setBucketItems] = useState(0);
+  const { bucketGuitars } = useBucket();
 
-
+  useEffect(() =>{
+    const bucket = bucketGuitars.reduce((acc, item) =>{
+      return acc + item.quantity;
+    }, 0)
+    setBucketItems(bucket)
+  },[bucketGuitars])
 
   const userSignOut = (e) => {
     e.preventDefault();
@@ -27,7 +36,7 @@ const AppHeader = () => {
     <div className="App-header">
       <div className="auth">
         {authUser ? (
-          <form onSubmit={userSignOut}>
+          <form className="authUser" onSubmit={userSignOut}>
             <p>{authUser.email}</p>
             <input type="submit" id="signOut" />
             <label className="signOutButton" htmlFor="signOut">
@@ -44,6 +53,10 @@ const AppHeader = () => {
             </Link>
           </>
         )}
+        <Link to={'/bucket'}>
+          <img className='bucket-link' src={bucket}/>
+          <div className='bucket-items'>{bucketItems}</div>
+        </Link>
       </div>
 
       <Link to={'/'}>

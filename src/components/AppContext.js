@@ -3,6 +3,7 @@ import { auth } from '../api';
 import { onAuthStateChanged} from 'firebase/auth';
 import { collection, getDocs, getDoc, doc, addDoc, query, where, updateDoc} from 'firebase/firestore';
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
+import db from '../api';
 
 
 export const AppContext = createContext();
@@ -14,6 +15,9 @@ export const AppProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
   const [success, setSuccess] = useState(false);
   const [authUser, setAuthUser] = useState(null);
+
+  
+
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -108,7 +112,7 @@ const fetchDatas = async (db, field, symbol, value) => {
     fetchData,
     addComment,
     fetchDatas,
-    changeVoteComment
+    changeVoteComment,
   };
 
   return (
