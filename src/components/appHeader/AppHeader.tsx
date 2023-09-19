@@ -1,7 +1,7 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, FormEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../../api';
-import { signOut } from 'firebase/auth';
+import { User, signOut } from 'firebase/auth';
 import { AppContext } from '../AppContext'; 
 import useBucket from '../useBucket';
 import bucket from "../../images/shopping-cart.png"
@@ -21,7 +21,7 @@ const AppHeader = () => {
     setBucketItems(bucket)
   },[bucketGuitars])
 
-  const userSignOut = (e) => {
+  const userSignOut = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signOut(auth)
       .then(() => {
@@ -82,8 +82,6 @@ const AppHeader = () => {
     </div>
   );
 };
-
-
 
 
 export default AppHeader;

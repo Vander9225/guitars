@@ -1,28 +1,28 @@
-import React, { useState, useContext} from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState, useContext } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../api';
-import '../auth/auth.css';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../AppContext'; 
 import Spinner from '../spinner/Spinner';
+import '../auth/auth.css';
 
-const SignPage = () => {
-  const {message, setMessage, success, setSuccess, authUser, setAuthUser, loading, setLoading} = useContext(AppContext);
+const Register = () => {
+
+  const {message, setMessage, success, setSuccess, loading, setLoading} = useContext(AppContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
 
-  const signIn = (e) => {
+  const register = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSuccess(false);
     setLoading(true);
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
-        setAuthUser(userCredential);
         setLoading(false);
+        setSuccess(true);
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
         setMessage(error.code.split('auth/').join('').replaceAll('-', ' '));
       });
@@ -34,10 +34,10 @@ const SignPage = () => {
     setEmail('');
   };
 
-  if (authUser) {
+  if (success) {
     return (
       <div className="modal">
-        <span>Welcome {authUser.email}</span>
+        <span>Registration {email} is successfull</span>
         <Link to={'/'}>
           <button className="button" onClick={goBack}>
             go back
@@ -59,7 +59,7 @@ const SignPage = () => {
   }
 
   return (
-    <form className="modal" onSubmit={signIn}>
+    <form className="modal" onSubmit={register}>
       <span>E-mail: </span>
       <input className="mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <span>Password: </span>
@@ -69,12 +69,12 @@ const SignPage = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <input className="submit" id="submitSign" type="submit" />
-      <label className="button" htmlFor="submitSign">
-        Sign In
+      <input className="submit" id="submitRegister" type="submit" />
+      <label className="button" htmlFor="submitRegister">
+        Register
       </label>
     </form>
   );
 };
 
-export default SignPage;
+export default Register;

@@ -6,15 +6,13 @@ import {useState, useEffect} from 'react';
 import db from '../../api';
 
 import './guitarList.css'
-
-
-
+import { Guitar } from '../../types';
 
 
 const GuitarList = () => {
 
     const {loading, setLoading, fetchDatas} = useContext(AppContext);
-    const [guitarList, setGuitarList] = useState();
+    const [guitarList, setGuitarList] = useState<Guitar[]>();
     const {category} = useParams();
 
     useEffect(() => {
@@ -22,14 +20,14 @@ const GuitarList = () => {
             setLoading(true);
             const newGuitars = await fetchDatas(db, 'type', '==', category);
             setLoading(false);      
-            setGuitarList(newGuitars); 
+            setGuitarList(newGuitars as Guitar[]); 
         }
         getData();
           
     }, [category]);
 
 
-    const renderItems = (guitarList) => {
+    const renderItems = (guitarList: Guitar[]) => {
 
         return (
             <div className='Guitar-List'>
@@ -54,7 +52,7 @@ const GuitarList = () => {
     };
 
     
-    const viewItems = loading ? <Spinner/> : renderItems(guitarList);
+    const viewItems = loading ? <Spinner/> : renderItems(guitarList!);
 
     return (
         <>

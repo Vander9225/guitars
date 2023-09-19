@@ -8,6 +8,7 @@ import './bucket.css';
 import { useAsync } from 'react-use';
 import useBucket from '../useBucket';
 import remove from '../../images/remove.png';
+import { BucketGuitar, Guitar } from '../../types';
 
 const Bucket = () => {
   const { loading, fetchData } = useContext(AppContext);
@@ -20,7 +21,7 @@ const Bucket = () => {
     value: backetsValue = [],
   } = useAsync(
     () =>
-      Promise.all(bucketGuitars.map(async (item) => await fetchData(db, item.guitar.toString()))).then(
+      Promise.all(bucketGuitars.map(async (item: BucketGuitar) => await fetchData(db, item.guitar.toString()))).then(
         (items) => items
       ),
     [bucketGuitars.length]
@@ -32,12 +33,12 @@ const Bucket = () => {
 
 
 
-  const renderItems = (items) => {
+  const renderItems = (items: Guitar[]) => {
 
     return (
       <div className="bucket">
         {items.length ? (
-          items.map((item, i) => {
+          items.map((item, i: number) => {
             const { image, brand, model, type } = item;
             const guitarId = `${brand} ${model}`;
             const quantity = bucketGuitars.find(({ guitar }) => guitar === guitarId)?.quantity;

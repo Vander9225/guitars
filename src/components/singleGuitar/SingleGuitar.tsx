@@ -10,16 +10,17 @@ import db from '../../api';
 
 import Spinner from '../spinner/Spinner';
 import './singleGuitar.css';
+import { Comment, Guitar } from '../../types';
 
 const SingleGuitar = () => {
   const { authUser, fetchComments, fetchData, addComment, loading } = useContext(AppContext);
   const { bucketGuitars, addToBucket, outFromBucket } = useBucket();
 
-  const [guitar, setGuitar] = useState();
-  const [comment, setComment] = useState('');
-  const [comments, setComments] = useState([]);
-  const [commentRate, setCommentRate] = useState(0);
-  const { guitarId } = useParams();
+  const [guitar, setGuitar] = useState<Guitar>();
+  const [comment, setComment] = useState<string>('');
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [commentRate, setCommentRate] = useState<number | null>(0);
+  const { guitarId = '' } = useParams();
   const quantity = bucketGuitars.find(({ guitar }) => guitar === guitarId)?.quantity;
 
 
@@ -33,12 +34,12 @@ const SingleGuitar = () => {
     getData();
   }, []);
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (comment && commentRate) {
       await addComment(db, guitarId, comment, commentRate, authUser);
       setComment('');
-      setCommentRate(null);
+      setCommentRate(0);
       const commentData = await fetchComments(db, guitarId);
       setComments(commentData);
     } else {
@@ -72,13 +73,13 @@ const SingleGuitar = () => {
           }
 
             <div className="guitar-slider">
-              <img className="single-guitar-image" src={guitar.image} alt="guitar" />
+              <img className="single-guitar-image" src={guitar?.image} alt="guitar" />
             </div>
             <div className="single-guitar-descr">
-              <h1>{guitar.brand}</h1>
-              <h2>{guitar.model}</h2>
-              <p>Strings: {guitar.strings}</p>
-              <p>{guitar.description}</p>
+              <h1>{guitar?.brand}</h1>
+              <h2>{guitar?.model}</h2>
+              <p>Strings: {guitar?.strings}</p>
+              <p>{guitar?.description}</p>
             </div>
           </div>
           {!quantity ? (
@@ -92,7 +93,7 @@ const SingleGuitar = () => {
         <section id="content2">
           <div className="comments">
             {comments.map((element) => {
-              return <CommentItem commentary={element} key={element.id} />;
+              return <CommentItem comment={element} key={element.id} />;
             })}
             <form id="usrform" onSubmit={onSubmit}>
               <Rating

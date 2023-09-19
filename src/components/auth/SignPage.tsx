@@ -1,30 +1,27 @@
-import React, { useState, useContext } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useState, useContext} from 'react';
+import { User, UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../api';
+import '../auth/auth.css';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../AppContext'; 
 import Spinner from '../spinner/Spinner';
-import '../auth/auth.css';
 
-const Register = () => {
 
-  const {message, setMessage, success, setSuccess, authUser, setAuthUser, loading, setLoading} = useContext(AppContext);
+const SignPage = () => {
+  const {message, setMessage, authUser, setAuthUser, loading, setLoading} = useContext(AppContext);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const register = (e) => {
+  const signIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSuccess(false);
     setLoading(true);
-    createUserWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
+        setAuthUser(userCredential.user);
         setLoading(false);
-        setSuccess(true);
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
         setMessage(error.code.split('auth/').join('').replaceAll('-', ' '));
       });
@@ -36,10 +33,10 @@ const Register = () => {
     setEmail('');
   };
 
-  if (success) {
+  if (authUser) {
     return (
       <div className="modal">
-        <span>Registration {email} is successfull</span>
+        <span>Welcome {authUser.email}</span>
         <Link to={'/'}>
           <button className="button" onClick={goBack}>
             go back
@@ -61,7 +58,7 @@ const Register = () => {
   }
 
   return (
-    <form className="modal" onSubmit={register}>
+    <form className="modal" onSubmit={signIn}>
       <span>E-mail: </span>
       <input className="mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <span>Password: </span>
@@ -71,12 +68,12 @@ const Register = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <input className="submit" id="submitRegister" type="submit" />
-      <label className="button" htmlFor="submitRegister">
-        Register
+      <input className="submit" id="submitSign" type="submit" />
+      <label className="button" htmlFor="submitSign">
+        Sign In
       </label>
     </form>
   );
 };
 
-export default Register;
+export default SignPage;

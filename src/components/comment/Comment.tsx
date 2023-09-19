@@ -3,10 +3,11 @@ import { AppContext } from '../AppContext';
 import { Rating } from '@mui/material';
 import { useState, useEffect } from 'react';
 import db from '../../api';
+import { Comment } from '../../types';
 
 
-const CommentItem = ({commentary}) => {
-    const {rate, email, date, comment, vote, id} = commentary;
+const CommentItem = ({comment}: {comment: Comment}) => {
+    const {rate, email, date, comment: commentText, vote, id} = comment;
     const { changeVoteComment } = useContext(AppContext);
     const [voteComment, setVoteComment] = useState(vote);
     const [voteUp, setVoteUp] = useState(false)
@@ -50,7 +51,7 @@ const CommentItem = ({commentary}) => {
         </div>
         <div  className="comment">
             <p className='comment-text'>{email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1)}</p>
-            <p className="comment-text">{comment}</p>
+            <p className="comment-text">{commentText}</p>
             <p className="comment-date">{date}</p>
         </div>
     </div>
