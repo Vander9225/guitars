@@ -53,7 +53,7 @@ const MainPage = () => {
                         items ? items.map((item) =>{
                             return (
                                     <Carousel.Item key={item.model}>
-                                        <Link to={`/${item.category}/${item.brand} ${item.model}`}>
+                                        <Link to={`/${item.type}/${item.brand} ${item.model}`}>
                                             <div>
                                                 <img className="guitar-item" alt={item.model} src={item.image} />
                                             </div>
